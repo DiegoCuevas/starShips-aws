@@ -81,3 +81,8 @@ Para ejecutar la aplicación localmente:
 ```
 serverless offline
 ```
+# Pruebas
+Para ejecutar las pruebas es con el siguiente comando:
+```
+npm test
+```
