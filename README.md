@@ -13,7 +13,7 @@ Está construida con AWS Lambda, API Gateway y DynamoDB.
 
 1. Clona este repositorio:
    ```
-   git clone git@github.com:DiegoCuevas/Naves_api.git
+   git clone git@github.com:DiegoCuevas/starShips-aws.git
    cd api-naves
    ```
 
@@ -82,6 +82,8 @@ Para ejecutar la aplicación localmente:
 serverless offline
 ```
 # Pruebas
+Usé la libreria `vitest` para algunas pruebas unitarias.
+
 Para ejecutar las pruebas es con el siguiente comando:
 ```
 npm test
