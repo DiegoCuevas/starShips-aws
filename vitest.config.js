@@ -2,10 +2,10 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    globals: true, // Permite usar globals como describe, it, expect sin importarlos
-    environment: 'node', // Define el entorno de pruebas (node o jsdom)
+    globals: true,
+    environment: 'node',
     coverage: {
-      provider: 'c8', // Proveedor de cobertura
+      provider: 'c8',
       reporter: ['text', 'json', 'html'],
       include: ['src/**/*.js'],
     },
