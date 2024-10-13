@@ -1,0 +1,52 @@
+app: api-naves
+service: api-naves
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ${opt:region, 'us-east-1'}
+  environment:
+    NAVES_TABLE: ${env:NAVES_TABLE}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:Scan
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.NAVES_TABLE}
+
+functions:
+  obtenerPersonajes:
+    handler: src/handlers/characters.getCharacters
+    events:
+      - http:
+          path: characters
+          method: get
+  crearNave:
+    handler: src/handlers/starShips.createStarShips
+    events:
+      - http:
+          path: starShips
+          method: post
+  obtenerNaves:
+    handler: src/handlers/starShips.getStarShips
+    events:
+      - http:
+          path: starShips
+          method: get
+
+resources:
+  Resources:
+    NavesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.NAVES_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
