@@ -42,6 +42,12 @@ functions:
       - http:
           path: starships/{id}
           method: put
+  patchStarShip:
+    handler: src/handlers/starShips.patchStarShip
+    events:
+      - http:
+          path: starships/{id}
+          method: patch
 
 resources:
   Resources:

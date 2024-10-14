@@ -37,6 +37,24 @@ Está construida con AWS Lambda, API Gateway y DynamoDB.
 
 La API proporciona los siguientes endpoints:
 
+### GET /starShips
+
+Obtiene todas las naves estelares.
+
+Ejemplo de solicitud:
+```
+curl https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShips
+
+```
+### GET /characters
+
+Obtiene todas los personajes con los atributos en español.
+
+Ejemplo de solicitud:
+```
+curl https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/characters
+```
+
 ### POST /starShips
 
 Crea una nueva nave estelar.
@@ -59,12 +77,11 @@ curl -X POST https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShip
 ```
 ### PUT /starShips
 
-Para actualizar los atributos de una nave.
-
+Para actualizar todos los atributos de una nave.
 
 Ejemplo de solicitud:
 ```
-curl https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShips/{id} \
+curl PUT https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShips/{id} \
 -H "Content-Type: application/json" \
 -d '{
   "nombre": "Estrella de la Muerte",
@@ -77,22 +94,17 @@ curl https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShips/{id} \
 }'
 
 ```
-### GET /starShips
-
-Obtiene todas las naves estelares.
-
-Ejemplo de solicitud:
-```
-curl https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShips
-
-```
-### GET /characters
-
-Obtiene todas los personajes con los atributos en español.
+### PATCH /starShips
+Para actualizar algunos de los atributos de una nave.
 
 Ejemplo de solicitud:
 ```
-curl https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/characters
+curl PATCH https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShips/{id} \
+-H "Content-Type: application/json" \
+-d '{
+  "nombre": "Estrella de la Muerte",
+}'
+
 ```
 
 # Desarrollo
