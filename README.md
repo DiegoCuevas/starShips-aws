@@ -37,7 +37,7 @@ Está construida con AWS Lambda, API Gateway y DynamoDB.
 
 La API proporciona los siguientes endpoints:
 
-### GET /starShips
+### GET /starships
 
 Obtiene todas las naves estelares.
 
@@ -52,10 +52,10 @@ Obtiene todas los personajes con los atributos en español.
 
 Ejemplo de solicitud:
 ```
-curl https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/characters
+curl --location 'https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/characters'
 ```
 
-### POST /starShips
+### POST /starships
 
 Crea una nueva nave estelar.
 
@@ -63,48 +63,56 @@ Ejemplo de solicitud:
 
 ```
 bash
-curl -X POST https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShips \
--H "Content-Type: application/json" \
--d '{
-"nombre": "X-wing",
-"modelo": "T-65 X-wing",
-"fabricante": "Incom Corporation",
-"costoEnCreditos": "149999",
-"longitud": "12.5",
-"velocidadMaximaAtmosfera": "1050",
-"tripulacion": "1"
+curl --location 'https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starships' \
+--header 'Content-Type: application/json' \
+--data '{
+  "nombre": "X-wing2",
+  "modelo": "T-65 X-wing2",
+  "fabricante": "Incom Corporation2",
+  "costoEnCreditos": "149999",
+  "longitud": "12.5",
+  "velocidadMaximaAtmosfera": "1050",
+  "tripulacion": "1"
 }'
 ```
-### PUT /starShips
+### PUT /starships/{id}
 
 Para actualizar todos los atributos de una nave.
 
 Ejemplo de solicitud:
 ```
-curl PUT https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShips/{id} \
--H "Content-Type: application/json" \
--d '{
-  "nombre": "Estrella de la Muerte",
-  "modelo": "Super Estrella Actualizado",
-  "fabricante": "Imperio",
-  "costoEnCreditos": 1000000000,
-  "longitud": 120000,
-  "velocidadMaximaAtmosfera": 1000,
-  "tripulacion": 500000
+curl --location --request PUT 'https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starships/7f4bc566-9185-49df-90b0-1b070bd88b36' \
+--header 'Content-Type: application/json' \
+--data '{
+  "nombre": "X-wing3",
+  "modelo": "T-65 X-wing3",
+  "fabricante": "Incom Corporation3",
+  "costoEnCreditos": "14",
+  "longitud": "12.5",
+  "velocidadMaximaAtmosfera": "1050",
+  "tripulacion": "1"
 }'
 
 ```
-### PATCH /starShips
+### PATCH /starships/{id}
 Para actualizar algunos de los atributos de una nave.
 
 Ejemplo de solicitud:
 ```
-curl PATCH https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShips/{id} \
--H "Content-Type: application/json" \
--d '{
-  "nombre": "Estrella de la Muerte",
+curl --location --request PATCH 'https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starships/7f4bc566-9185-49df-90b0-1b070bd88b36' \
+--header 'Content-Type: application/json' \
+--data '{
+    "nombre": "nuevo nombre",
+   // ... otros atributos que tu desees actualizar 
 }'
 
+```
+### DELETE /starships/{id}
+Para eliminar una nave espacial.
+
+Ejemplo de solicitud:
+```
+curl --location --request DELETE 'https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starships/7f4bc566-9185-49df-90b0-1b070bd88b36'
 ```
 
 # Desarrollo
