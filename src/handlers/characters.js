@@ -1,13 +1,13 @@
 
-const customParams = (personaje) => ({
-  nombre: personaje.name,
-  altura: personaje.height,
-  peso: personaje.mass,
-  colorCabello: personaje.hair_color,
-  colorPiel: personaje.skin_color,
-  colorOjos: personaje.eye_color,
-  añoNacimiento: personaje.birth_year,
-  género: personaje.gender,
+const customParams = (character) => ({
+  nombre: character.name,
+  altura: character.height,
+  peso: character.mass,
+  colorCabello: character.hair_color,
+  colorPiel: character.skin_color,
+  colorOjos: character.eye_color,
+  añoNacimiento: character.birth_year,
+  género: character.gender,
 });
 
 export const getCharacters = async (event) => {
