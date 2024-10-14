@@ -97,7 +97,7 @@ export const updateStarShip = async (event) => {
     console.error('Error al actualizar nave:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ mensaje: 'Error al actualizar nave' }),
+      body: JSON.stringify({ mensaje: 'Error al actualizar nave', error: error }),
     };
   }
 };
@@ -136,7 +136,32 @@ export const patchStarShip = async (event) => {
     console.error('Error al actualizar nave:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ mensaje: 'Error al actualizar nave' }),
+      body: JSON.stringify({ 
+        mensaje: 'Error al actualizar nave', 
+        error: error
+      }),
+    };
+  }
+};
+
+export const deleteStarShip = async (event) => {
+  const id = event.pathParameters.id;
+
+  const params = {
+    TableName: process.env.NAVES_TABLE,
+    Key: { id },
+  };
+
+  try {
+    await dynamoDb.delete(params).promise();
+    return {
+      statusCode: 204
+    };
+  } catch (error) {
+    console.error('Error al eliminar nave:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ mensaje: 'Error al eliminar nave' }),
     };
   }
 };
