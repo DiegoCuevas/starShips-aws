@@ -57,6 +57,26 @@ curl -X POST https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShip
 "tripulacion": "1"
 }'
 ```
+### PUT /starShips
+
+Para actualizar los atributos de una nave.
+
+
+Ejemplo de solicitud:
+```
+curl https://t6c4tpoxxk.execute-api.us-east-1.amazonaws.com/dev/starShips/{id} \
+-H "Content-Type: application/json" \
+-d '{
+  "nombre": "Estrella de la Muerte",
+  "modelo": "Super Estrella Actualizado",
+  "fabricante": "Imperio",
+  "costoEnCreditos": 1000000000,
+  "longitud": 120000,
+  "velocidadMaximaAtmosfera": 1000,
+  "tripulacion": 500000
+}'
+
+```
 ### GET /starShips
 
 Obtiene todas las naves estelares.

@@ -58,3 +58,48 @@ export const getStarShips = async () => {
     };
   }
 };
+
+export const updateStarShip = async (event) => {
+  const data = JSON.parse(event.body);
+  const id = event.pathParameters.id;
+  const params = {
+    TableName: process.env.NAVES_TABLE,
+    Key: {
+      id,
+    },
+    UpdateExpression: 'set #n = :n, #m = :m, #f = :f, #c = :c, #l = :l, #v = :v, #t = :t',
+    ExpressionAttributeNames: {
+      '#n': 'nombre',
+      '#m': 'modelo',
+      '#f': 'fabricante',
+      '#c': 'costoEnCreditos',
+      '#l': 'longitud',
+      '#v': 'velocidadMaximaAtmosfera',
+      '#t': 'tripulacion',
+    },
+    ExpressionAttributeValues: {
+      ':n': data.nombre,
+      ':m': data.modelo,
+      ':f': data.fabricante,
+      ':c': data.costoEnCreditos,
+      ':l': data.longitud,
+      ':v': data.velocidadMaximaAtmosfera,
+      ':t': data.tripulacion,
+    },
+    ReturnValues: 'UPDATED_NEW',
+  };
+
+  try {
+    const result = await dynamoDb.update(params).promise();
+    return {
+      statusCode: 200,
+      body: JSON.stringify(result.Attributes),
+    };
+  } catch (error) {
+    console.error('Error al actualizar nave:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ mensaje: 'Error al actualizar nave' }),
+    };
+  }
+};

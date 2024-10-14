@@ -18,24 +18,30 @@ provider:
       Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.NAVES_TABLE}
 
 functions:
-  obtenerPersonajes:
+  getCharacter:
     handler: src/handlers/characters.getCharacters
     events:
       - http:
           path: characters
           method: get
-  crearNave:
+  createStarShips:
     handler: src/handlers/starShips.createStarShips
     events:
       - http:
-          path: starShips
+          path: starships
           method: post
-  obtenerNaves:
+  getStarShips:
     handler: src/handlers/starShips.getStarShips
     events:
       - http:
-          path: starShips
+          path: starships
           method: get
+  updateStarShip:
+    handler: src/handlers/starShips.updateStarShip
+    events:
+      - http:
+          path: starships/{id}
+          method: put
 
 resources:
   Resources:
