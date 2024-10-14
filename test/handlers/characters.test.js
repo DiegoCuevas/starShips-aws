@@ -1,9 +1,7 @@
-// tests/characters.test.js
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import axios from 'axios';
 import { getCharacters } from '../../src/handlers/characters';
 
-vi.mock('axios');
+global.fetch = vi.fn();
 
 describe('getCharacters', () => {
   beforeEach(() => {
@@ -12,28 +10,28 @@ describe('getCharacters', () => {
 
   it('debería retornar una respuesta exitosa con personajes', async () => {
     const mockedData = {
-      data: {
-        results: [
-          {
-            name: 'Luke Skywalker',
-            height: '172',
-            mass: '77',
-            hair_color: 'blond',
-            skin_color: 'fair',
-            eye_color: 'blue',
-            birth_year: '19BBY',
-            gender: 'male',
-          },
-        ],
-      },
+      results: [
+        {
+          name: 'Luke Skywalker',
+          height: '172',
+          mass: '77',
+          hair_color: 'blond',
+          skin_color: 'fair',
+          eye_color: 'blue',
+          birth_year: '19BBY',
+          gender: 'male',
+        },
+      ],
     };
 
-    axios.get.mockResolvedValue(mockedData);
+    fetch.mockResolvedValue({
+      json: async () => mockedData,
+    });
 
     const event = {};
     const result = await getCharacters(event);
 
-    const expectedCharacters = mockedData.data.results.map((personaje) => ({
+    const expectedCharacters = mockedData.results.map((personaje) => ({
       nombre: personaje.name,
       altura: personaje.height,
       peso: personaje.mass,
@@ -49,13 +47,13 @@ describe('getCharacters', () => {
       body: JSON.stringify(expectedCharacters),
     });
 
-    expect(axios.get).toHaveBeenCalledWith('https://swapi.py4e.com/api/people/');
-    expect(axios.get).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith('https://swapi.py4e.com/api/people/');
+    expect(fetch).toHaveBeenCalledTimes(1);
   });
 
   it('debería manejar errores y retornar statusCode 500', async () => {
     const mockedError = new Error('Network Error');
-    axios.get.mockRejectedValue(mockedError);
+    fetch.mockRejectedValue(mockedError);
 
     const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
@@ -67,11 +65,12 @@ describe('getCharacters', () => {
       body: JSON.stringify({ mensaje: 'Error al obtener personajes' }),
     });
 
-    expect(axios.get).toHaveBeenCalledWith('https://swapi.py4e.com/api/people/');
-    expect(axios.get).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith('https://swapi.py4e.com/api/people/');
+    expect(fetch).toHaveBeenCalledTimes(1);
 
     expect(consoleErrorSpy).toHaveBeenCalledWith('Error al obtener personajes:', mockedError);
 
     consoleErrorSpy.mockRestore();
   });
 });
+

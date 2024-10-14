@@ -1,8 +1,8 @@
 import AWS from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 
-dotenv.config();
+
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 

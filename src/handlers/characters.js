@@ -1,4 +1,3 @@
-import axios from 'axios';
 
 const customParams = (personaje) => ({
   nombre: personaje.name,
@@ -13,8 +12,9 @@ const customParams = (personaje) => ({
 
 export const getCharacters = async (event) => {
   try {
-    const response = await axios.get('https://swapi.py4e.com/api/people/');
-    const characters = response.data.results.map(customParams);
+    const response = await fetch('https://swapi.py4e.com/api/people/');
+    const data = await response.json();
+    const characters = data.results.map(customParams);
 
     return {
       statusCode: 200,
